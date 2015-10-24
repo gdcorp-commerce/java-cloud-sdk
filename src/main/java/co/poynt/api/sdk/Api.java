@@ -28,14 +28,15 @@ public abstract class Api {
 
 	public HttpGet createGetRequest(String url) {
 		HttpGet get = new HttpGet(url);
-		get.setHeader("User-Agent", Constants.SDK_AGENT + ": " + this.sdk.getConfig().getAppId());
+		get.setHeader(HttpHeaders.USER_AGENT, Constants.SDK_AGENT + ": " + this.sdk.getConfig().getAppId());
 		get.setHeader("api-version", Constants.POYNT_API_VERSION);
 		return get;
 	}
 
 	public HttpPost createPostRequest(String url) {
 		HttpPost post = new HttpPost(url);
-		post.setHeader("User-Agent", Constants.SDK_AGENT + ": " + this.sdk.getConfig().getAppId());
+		post.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+		post.setHeader(HttpHeaders.USER_AGENT, Constants.SDK_AGENT + ": " + this.sdk.getConfig().getAppId());
 		post.setHeader("api-version", Constants.POYNT_API_VERSION);
 		return post;
 	}

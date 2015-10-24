@@ -22,4 +22,5 @@ public class Constants {
 	public static final String API_TRANSACTIONS = "/businesses/{businessId}/transactions";
 	public static final String API_ORDERS = "/businesses/{businessId}/orders";
 	public static final String API_CLOUD_MESSAGES = "/cloudMessages";
+	public static final String API_WEBHOOKS = "/hooks";
 }

@@ -233,4 +233,8 @@ public class PoyntSdk implements Closeable {
 	public ApiOrder order() {
 		return new ApiOrder(this);
 	}
+
+	public ApiWebhook webhook() {
+		return new ApiWebhook(this);
+	}
 }
