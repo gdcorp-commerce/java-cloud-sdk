@@ -4,8 +4,13 @@ import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+import javax.net.ssl.SSLContext;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -17,6 +22,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.ssl.SSLContexts;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -27,6 +35,7 @@ import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import co.poynt.api.model.TokenResponse;
 
 public class PoyntSdk implements Closeable {
+	private static final Logger logger = LoggerFactory.getLogger(PoyntSdk.class);
 	private Config config;
 	private ObjectMapper om;
 
@@ -114,10 +123,19 @@ public class PoyntSdk implements Closeable {
 					.setConnectTimeout(cfg.getHttpConnectTimeout())
 					.setConnectionRequestTimeout(cfg.getHttpRequestTimeout()).build();
 
-			PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-			cm.setMaxTotal(cfg.getHttpMaxConnection());
-			cm.setDefaultMaxPerRoute(cfg.getHttpMaxConnPerRoute());
-			this.client = HttpClientBuilder.create().setDefaultRequestConfig(httpCfg).setConnectionManager(cm).build();
+			try {
+				PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
+				cm.setMaxTotal(cfg.getHttpMaxConnection());
+				cm.setDefaultMaxPerRoute(cfg.getHttpMaxConnPerRoute());
+
+				SSLContext sslContext = SSLContexts.custom().useProtocol("TLSv1.2").build();
+
+				this.client = HttpClientBuilder.create().setSSLContext(sslContext).setDefaultRequestConfig(httpCfg)
+						.setConnectionManager(cm).build();
+
+			} catch (KeyManagementException | NoSuchAlgorithmException e) {
+				throw new PoyntSdkException("Failed to create http client");
+			}
 
 			this.om = new ObjectMapper();
 			this.om.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
@@ -160,6 +178,10 @@ public class PoyntSdk implements Closeable {
 		HttpPost post = new HttpPost(Constants.POYNT_API_HOST + Constants.API_TOKEN);
 		post.setHeader("User-Agent", Constants.SDK_AGENT + ": " + this.config.getAppId());
 		post.setHeader("api-version", Constants.POYNT_API_VERSION);
+		String requestId = UUID.randomUUID().toString();
+		logger.debug("Poynt-Request-Id: " + requestId);
+		post.setHeader("Poynt-Request-Id", requestId);
+
 		List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 
 		if (this.refreshToken == null) {
