@@ -18,13 +18,13 @@
 			<uniqueVersion>false</uniqueVersion>
 			<id>nexus</id>
 			<name>Nexus release repository</name>
-			<url>https://nexus.poynt.co/content/repositories/releases</url>
+			<url>https://nexus.poynt.com/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<uniqueVersion>false</uniqueVersion>
 			<id>nexus</id>
 			<name>Nexus snapshot repository</name>
-			<url>https://nexus.poynt.co/content/repositories/snapshots</url>
+			<url>https://nexus.poynt.com/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>co.poynt.api</groupId>
 			<artifactId>api-model</artifactId>
-			<version>1.2.33</version>
+			<version>1.2.64</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
