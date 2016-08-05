@@ -13,21 +13,13 @@
 		<developerConnection>scm:git:https://github.com/poynt/java-cloud-sdk</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
-	<distributionManagement>
+	<repositories>
 		<repository>
-			<uniqueVersion>false</uniqueVersion>
 			<id>nexus</id>
 			<name>Nexus release repository</name>
 			<url>https://nexus.poynt.com/content/repositories/releases</url>
 		</repository>
-		<snapshotRepository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>nexus</id>
-			<name>Nexus snapshot repository</name>
-			<url>https://nexus.poynt.com/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
-
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>co.poynt.api</groupId>
