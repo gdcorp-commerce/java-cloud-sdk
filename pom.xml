@@ -9,8 +9,8 @@
 	<url>http://services.poynt.net</url>
 	<scm>
 		<url>https://github.com/poynt/java-cloud-sdk</url>
-		<connection>scm:git:https://github.com/poynt/java-cloud-sdk</connection>
-		<developerConnection>scm:git:https://github.com/poynt/java-cloud-sdk</developerConnection>
+		<connection>scm:git:ssh://git@github.com/poynt/java-cloud-sdk</connection>
+		<developerConnection>scm:git:ssh://git@github.com/poynt/java-cloud-sdk</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 	<repositories>
