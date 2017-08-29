@@ -14,6 +14,18 @@ Maven dependency
    </dependency>
 ```
 
+Maven repository
+
+```
+<snapshotRepository>
+	<uniqueVersion>false</uniqueVersion>
+	<id>nexus</id>
+	<name>Nexus snapshot repository</name>
+	<url>https://nexus.poynt.com/content/repositories/snapshots</url>
+</snapshotRepository>
+```
+		
+
 # Installing
 
 1. Signup at [https://poynt.net](https://poynt.net/auth/signup/developer).
