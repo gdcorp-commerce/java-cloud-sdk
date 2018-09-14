@@ -57,7 +57,7 @@ public class JsonWebToken {
 		JWSSigner signer = new RSASSASigner((RSAPrivateKey) keyPair.getPrivate());
 
 		List<String> aud = new ArrayList<String>();
-		aud.add(Constants.POYNT_API_HOST);
+		aud.add(config.getApiHost());
 
 		JWTClaimsSet claimsSet = new JWTClaimsSet();
 		claimsSet.setAudience(aud);
