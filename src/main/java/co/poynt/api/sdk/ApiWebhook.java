@@ -5,7 +5,7 @@ import co.poynt.api.model.Hook;
 public class ApiWebhook extends Api {
 
 	public ApiWebhook(PoyntSdk sdk) {
-		super(sdk, Constants.POYNT_API_HOST + Constants.API_WEBHOOKS);
+		super(sdk, sdk.getConfig().getApiHost() + Constants.API_WEBHOOKS);
 	}
 
 	public Hook get(String hookId) {

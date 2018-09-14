@@ -6,10 +6,21 @@ import java.util.Properties;
 
 public class Config {
 	Properties prop = new Properties();
+	String apiHost;
 
 	public void load(String configFile) throws IOException {
 		try (InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(configFile)) {
 			this.prop.load(inputStream);
+			// 1. Try to get host from system properties first
+			apiHost = System.getProperty("apiHost");
+			// 2. Then check config.properties
+			if (apiHost == null) {
+				apiHost = prop.getProperty(Constants.PROP_API_HOST);
+			}
+			// 3. Then default to what we have in Constants
+			if (apiHost == null){
+				apiHost = Constants.POYNT_API_HOST;
+			}
 		}
 	}
 
@@ -19,6 +30,10 @@ public class Config {
 
 	public String getAppKeyFile() {
 		return prop.getProperty(Constants.PROP_APP_KEY_FILE);
+	}
+
+	public String getApiHost() {
+		return apiHost;
 	}
 
 	public int getHttpSocketTimeout() {

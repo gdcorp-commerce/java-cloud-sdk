@@ -39,6 +39,10 @@ Maven repository
 appId=urn:aid:...YOUR_APP_ID...
 appKeyFile=classpath:YOUR_APP_KEY_FILE.pem
 
+# optional apiHost. If not specified defaults to https://services.poynt.net
+# apiHost can also be set as a VM option: -DapiHost=
+# apiHost=https://services-eu.poynt.net
+
 # Adjust to your liking
 httpSocketTimeout=2000
 httpConnectTimeout=5000

@@ -7,7 +7,7 @@ import co.poynt.api.model.Transaction;
 public class ApiTransaction extends Api {
 
 	public ApiTransaction(PoyntSdk sdk) {
-		super(sdk, Constants.POYNT_API_HOST + Constants.API_TRANSACTIONS);
+		super(sdk, sdk.getConfig().getApiHost() + Constants.API_TRANSACTIONS);
 	}
 
 	public Transaction get(String businessId, String transactionId) {

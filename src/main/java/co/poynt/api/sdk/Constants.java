@@ -5,7 +5,7 @@ public class Constants {
 
 	public static final String PROP_APP_ID = "appId";
 	public static final String PROP_APP_KEY_FILE = "appKeyFile";
-
+	public static final String PROP_API_HOST = "apiHost";
 	public static final String PROP_API_SOCKET_TIMEOUT = "httpSocketTimeout";
 	public static final String PROP_API_CONNECT_TIMEOUT = "httpConnectTimeout";
 	public static final String PROP_API_REQUEST_TIMEOUT = "httpRequestTimeout";

@@ -175,7 +175,7 @@ public class PoyntSdk implements Closeable {
 		if (this.accessToken != null) {
 			return this.accessToken;
 		}
-		HttpPost post = new HttpPost(Constants.POYNT_API_HOST + Constants.API_TOKEN);
+		HttpPost post = new HttpPost(config.getApiHost() + Constants.API_TOKEN);
 		post.setHeader("User-Agent", Constants.SDK_AGENT + ": " + this.config.getAppId());
 		post.setHeader("api-version", Constants.POYNT_API_VERSION);
 		String requestId = UUID.randomUUID().toString();

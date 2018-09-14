@@ -5,7 +5,7 @@ import co.poynt.api.model.Order;
 public class ApiOrder extends Api {
 
 	public ApiOrder(PoyntSdk sdk) {
-		super(sdk, Constants.POYNT_API_HOST + Constants.API_ORDERS);
+		super(sdk, sdk.getConfig().getApiHost() + Constants.API_ORDERS);
 	}
 
 	public Order get(String businessId, String orderId) {
