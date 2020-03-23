@@ -193,10 +193,11 @@ public class PoyntSdk implements Closeable {
 			urlParameters.add(new BasicNameValuePair("refreshToken", this.refreshToken));
 		}
 
+		HttpResponse response = null;
 		try {
 			post.setEntity(new UrlEncodedFormEntity(urlParameters));
 
-			HttpResponse response = httpClient.execute(post);
+			response = httpClient.execute(post);
 			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 				StringBuffer result = new StringBuffer();
@@ -209,15 +210,17 @@ public class PoyntSdk implements Closeable {
 				this.accessToken = tokenResponse.getAccessToken();
 				this.refreshToken = tokenResponse.getRefreshToken();
 				return this.accessToken;
-			} else {
-				throw new PoyntSdkException(
-						response.getStatusLine().getStatusCode() + ": " + response.getStatusLine().getReasonPhrase());
 			}
 		} catch (Exception e) {
-			throw new PoyntSdkException("Failed to obtain access token.");
 		} finally {
 			post.releaseConnection();
 		}
+
+		if (response != null) {
+			throw new PoyntSdkException(
+				response.getStatusLine().getStatusCode() + ": " + response.getStatusLine().getReasonPhrase());
+		}
+		throw new PoyntSdkException("Failed to obtain access token.");
 	}
 
 	public Config getConfig() {
